@@ -1,0 +1,25 @@
+{
+    "name": "batch-tr",
+    "version": "0.1.0",
+    "description": "batch-tr",
+    "main": "index.js",
+    "author": "freemt",
+    "scripts": {
+        "start": "pyright && pytest && yarn style",
+        "test": "nodemon -w tests -w batch_tr -x pytest tests",
+        "pyright": "nodemon -w batch_tr -w .venv -e .py -x pyright batch_tr tests",
+        "pytest": "pytest",
+        "style": "nodemon -w batch_tr -w tests -x \"black tests batch_tr && python -m flake8\"",
+        "docstyle": "nodemon -w batch_tr -w tests -x pydocstyle --convention=google tests batch_tr",
+        "pylint": "nodemon -w batch_tr -e .py -x pylint batch_tr",
+        "test:batch_tr": "nodemon -w tests -e .py -x pytest -k batch_tr tests",
+        "publish": "poetry build && poetry publihs",
+        "black": "black tests batch_tr",
+        "flake8": "flake8",
+        "final": "run-s black flake8 pytest"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "run-s": "^0.0.0"
+    }
+}
