@@ -38,9 +38,10 @@ def batch_tr(
 
     Args:
         text: string of list of string to translate
-        to_lang: destination lang, default to "en"
+        to_lang: destination lang, default to "zh"
         from_lang: source lang, default to "auto"
-        maxlen: max length
+        maxlen: max length (default to 10000 for non-Chinese text,
+        5000 if text contains most Chinese)
         delim: for combining and splitting
     Returns:
         Translated text (maintain para info)
@@ -107,17 +108,17 @@ def batch_tr(
     len_ = len(text)  # for checking later on
 
     # str_ = f"\n{delim}\n".join(text)
-    str_ = f" {delim} ".join(text)
+    str_ = f"\n{delim}\n".join(text)
     res_ = batch_tr(str_, to_lang, from_lang)
 
     # split and strip rf"[{delim}[{delim}]"
     # res = [elm.strip(" ") for elm in str(res_).split(delim)]
     # res = [elm.strip(" ") for elm in re.split(delim, str(res_), flags=re.I)]
     # delim1 = rf"[{delim}][{delim}]"
-    res = [elm.strip(" ") for elm in re.split(delim, str(res_), flags=re.I)]
+    res = [elm.strip() for elm in re.split(delim, str(res_), flags=re.I)]
 
     if len_ != len(res):
         logger.warning("Attention: before len: %s != after len %s", len_, len(res))
-        logger.info("We proceed nevetheless.")
+        logger.info("We proceed nevertheless.")
 
     return res
