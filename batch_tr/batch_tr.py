@@ -48,11 +48,11 @@ def batch_tr(
 
     Note 1: text better strip() before feeding to batch_tr, the extra new lines at the end my cause some problem.
 
-    Note 2: to_lang="en", not quite working yet
+    Note 2: to_lang="en", not quite working yet for list of strings
     """
-    if to_lang not in ["zh", "chinese"]:
-        logger.debug("to_lang: %s", to_lang)
-        logger.warning(" Only tested for to_lang='zh', to_lang='en' not quite work.")
+    # for storing a message when something goes wrong
+    # intended for use in streamlit
+    batch_tr.msg = ""
 
     try:
         to_lang = to_lang.lower()
@@ -103,7 +103,11 @@ def batch_tr(
         # return res.result
         return " ".join(res)
 
-    # ### text is a list
+    # ### text is a list of strings
+    if to_lang not in ["zh", "chinese"]:
+        logger.debug("to_lang: %s", to_lang)
+        logger.warning(" Only tested for to_lang='zh', to_lang='en' not quite working for list.")
+
     # ### combine, then split ###
     len_ = len(text)  # for checking later on
 
@@ -120,5 +124,6 @@ def batch_tr(
     if len_ != len(res):
         logger.warning("Attention: before len: %s != after len %s", len_, len(res))
         logger.info("We proceed nevertheless.")
+        batch_tr.msg = "Attention: before len: %s != after len %s" % (len_, len(res))
 
     return res

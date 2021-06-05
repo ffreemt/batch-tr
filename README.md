@@ -4,15 +4,22 @@
 
 batch translate (10000 chars)
 
-<!-- c:\dl\Dropbox\mat-dir\snippets-mat\deepl-translate-memo.txt -->
+<!-- snippets-mat\deepl-translate-memo.txt -->
 
-## Usage
+## Use It
 
 ```python
 from batch_tr.batch_tr import batch_tr
 
 res = batch_tr("very long text " * 10000)
 print(res)
-#
+# to chinese/zh
 
 print(batch_tr("test me", to_lang="de"))
+
+# long list
+res = batch_tr(("very long text \n" * 10000).splitlines())
+# equally long list of translated text
+# known to work for to_lang="zh" (default)
+print(res)
+```
