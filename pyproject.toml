@@ -16,6 +16,7 @@ logzero = "^1.7.0"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 flake8 = "^3.9.2"
+ipython = "6.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
